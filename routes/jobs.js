@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// const dashBoard = async((req, res) => {
-//   res.status(200).send("Success yeaah");
-// });
-
 const {
   // dashBoard,
   getAllJobs,
