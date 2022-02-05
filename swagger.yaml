@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: jobs api
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://jobs-api-07-08.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginrequest"
+            example:
+              email: test5@gmail.com
+              password: test124
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/signUp:
+    post:
+      tags:
+        - Auth
+      summary: signUp
+      operationId: signUp
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/signUpRequest"
+            example:
+              name: test5
+              email: test5@gmail.com
+              password: test124
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs/getAllJobs:
+    get:
+      tags:
+        - Jobs
+      summary: getAllJobs
+      operationId: getAllJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/getJob/{id}:
+    get:
+      tags:
+        - Jobs
+      summary: getJob
+      operationId: getJob
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 61fea2f46c33761d18870d77
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/createJob:
+    post:
+      tags:
+        - Jobs
+      summary: createJob
+      operationId: createJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createJobRequest"
+            example:
+              company: DRDO
+              position: Scientist
+              status: interview
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/deleteJob/{id}:
+    delete:
+      tags:
+        - Jobs
+      summary: deleteJob
+      operationId: deleteJob
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 61fea2f46c33761d18870d77
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/updateJob/{id}:
+    patch:
+      tags:
+        - Jobs
+      summary: updateJob
+      operationId: updateJob
+      parameters:
+        - name: id
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: 61fea2f46c33761d18870d77
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateJobRequest"
+            example:
+              company: Flipkart
+              position: pending
+              status: pending
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: test5@gmail.com
+        password: test124
+    signUpRequest:
+      title: signUpRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: test5
+        email: test5@gmail.com
+        password: test124
+    createJobRequest:
+      title: createJobRequest
+      required:
+        - company
+        - position
+        - status
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: DRDO
+        position: Scientist
+        status: interview
+    updateJobRequest:
+      title: updateJobRequest
+      required:
+        - company
+        - position
+        - status
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        status:
+          type: string
+      example:
+        company: Flipkart
+        position: pending
+        status: pending
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Jobs
+    description: ""

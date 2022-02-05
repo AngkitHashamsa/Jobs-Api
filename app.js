@@ -11,6 +11,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
+const swaggerUI = require("swagger-ui-express");
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -22,6 +23,10 @@ const limiter = rateLimiter({
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+
+const YAML = require("yamljs");
+
+const swaggerDoc = YAML.load("./swagger.yaml");
 
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
@@ -35,8 +40,14 @@ app.use(xss());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", auth, jobsRouter);
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.get("/", (req, res) => {
-  res.status(200).send("Jobs Api");
+  res.status(200).send(`<h1>
+  Jobs API
+  </h1>
+  <a href='/api-docs'>Documentation</a>
+  `);
 });
 // app.get("/", (req, res) => {
 //   res.json({ name: "jobs api" });
