@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new UnauthenticatedError("Authentication invalid");
   }
-  const token = authHeader.split("  ")[1];
+  const token = authHeader.split(" ")[1];
   // console.log(token);
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
