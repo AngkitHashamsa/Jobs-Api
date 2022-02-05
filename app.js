@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./db/connect");
 const authRouter = require("./routes/auth");
+const jobsRouter = require("./routes/jobs");
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -12,7 +13,8 @@ app.use(express.json());
 // extra packages
 
 // routes
-app.use("/api/v1", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/jobs", jobsRouter);
 // app.get("/", (req, res) => {
 //   res.json({ name: "jobs api" });
 // });
